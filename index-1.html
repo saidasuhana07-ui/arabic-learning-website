@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arabiyya — Arabic Learning Platform</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--text:#18212f;--muted:#667085;--primary:#147d73;--primary2:#0e5f58;--gold:#d6a84f;--line:#e7e9ef;--good:#16845f;--bad:#c43d4b;--shadow:0 12px 35px #15203012}
+body.dark{--bg:#10171b;--card:#172126;--text:#f2f5f5;--muted:#aab6bb;--line:#2a363c;--shadow:0 12px 35px #0005}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;transition:.25s}
+button{font:inherit;cursor:pointer}.app{display:flex;min-height:100vh}.sidebar{width:250px;background:var(--card);border-right:1px solid var(--line);padding:24px 16px;position:fixed;inset:0 auto 0 0;z-index:5}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;margin:4px 10px 28px}.logo span{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--primary);color:white}
+.nav button{width:100%;border:0;background:transparent;color:var(--muted);padding:12px 14px;text-align:left;border-radius:10px;margin:2px 0}.nav button.active,.nav button:hover{background:#147d7312;color:var(--primary);font-weight:700}.main{margin-left:250px;width:calc(100% - 250px);padding:28px;max-width:1500px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.top h1{margin:0;font-size:30px}.actions{display:flex;gap:10px}.icon{border:1px solid var(--line);background:var(--card);color:var(--text);width:42px;height:42px;border-radius:12px}
+.hero{background:linear-gradient(135deg,var(--primary2),var(--primary));color:white;border-radius:24px;padding:30px;display:flex;justify-content:space-between;gap:20px;overflow:hidden;position:relative;box-shadow:var(--shadow)}.hero:after{content:"العربية";position:absolute;right:25px;bottom:-28px;font-size:100px;opacity:.08;font-weight:800}.hero h2{font-size:34px;margin:5px 0 10px}.hero p{max-width:650px;color:#e3f3f0}.btn{border:0;border-radius:11px;padding:11px 17px;font-weight:700;background:var(--primary);color:white}.btn.light{background:white;color:var(--primary2)}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:20px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}.stat strong{font-size:28px;display:block;margin:5px 0}.muted{color:var(--muted);font-size:14px}.bar{height:8px;background:#dfe5e6;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--primary);border-radius:99px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px}.section-title h2{margin:0}.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.level{cursor:pointer;transition:.2s}.level:hover{transform:translateY(-3px)}.level h3{margin:6px 0}.pill{display:inline-block;border-radius:999px;padding:5px 9px;background:#147d7312;color:var(--primary);font-size:12px;font-weight:700}.lesson-list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.lesson{display:flex;flex-direction:column;gap:12px}.lesson .arabic{font-size:31px;direction:rtl;text-align:center;padding:12px;background:var(--bg);border-radius:14px}.lesson-actions{display:flex;gap:8px;margin-top:auto}.lesson-actions .btn{flex:1}.search{width:100%;padding:12px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px}
+.page{display:none}.page.active{display:block}.lesson-head{display:flex;justify-content:space-between;gap:20px;align-items:center}.arabic-xl{font-size:58px;direction:rtl;text-align:center;margin:25px 0 8px}.trans{text-align:center;color:var(--muted);font-style:italic}.meaning{text-align:center;font-size:20px}.phrase{border:1px solid var(--line);border-radius:16px;padding:18px;margin:12px 0;background:var(--card)}.phrase .ar{font-size:36px;direction:rtl}.audio{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:9px;padding:7px 11px}.exercise{max-width:800px;margin:auto}.option{display:block;width:100%;text-align:left;padding:13px;margin:8px 0;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px}.option:hover{border-color:var(--primary)}.feedback{padding:13px;border-radius:10px;margin-top:12px;display:none}.good{background:#16845f18;color:var(--good);display:block}.bad{background:#c43d4b18;color:var(--bad);display:block}.conversation{background:var(--bg);padding:16px;border-radius:15px}.bubble{padding:10px 13px;border-radius:14px;margin:8px;max-width:80%}.you{margin-left:auto;background:var(--primary);color:white}.ai{background:var(--card);border:1px solid var(--line)}.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:16px}.tab{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--text);padding:9px 13px;border-radius:999px}.tab.active{background:var(--primary);color:white}.vocab{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.vcard{text-align:center}.vcard .ar{font-size:32px;direction:rtl}.profile{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+body.speaking .audio,body.speaking .btn{transition:.15s;transform:scale(1.01)}.modal{position:fixed;inset:0;background:#0008;display:none;place-items:center;z-index:20;padding:20px}.modal.show{display:grid}.modalbox{background:var(--card);border-radius:20px;padding:25px;max-width:700px;width:100%;max-height:90vh;overflow:auto}.close{float:right;border:0;background:transparent;color:var(--muted);font-size:24px}
+@media(max-width:1000px){.sidebar{width:210px}.main{margin-left:210px;width:calc(100% - 210px)}.grid,.levels,.lesson-list{grid-template-columns:repeat(2,1fr)}.vocab{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.sidebar{position:fixed;width:100%;height:auto;bottom:0;top:auto;border-right:0;border-top:1px solid var(--line);padding:7px;display:flex}.logo{display:none}.nav{display:flex;width:100%;justify-content:space-around}.nav button{font-size:11px;text-align:center;padding:8px 3px}.main{margin:0 0 64px;width:100%;padding:16px}.hero{padding:22px}.hero h2{font-size:26px}.grid,.levels,.lesson-list,.vocab,.profile{grid-template-columns:1fr}.top h1{font-size:24px}.arabic-xl{font-size:45px}.lesson-head{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="logo"><span>ع</span> Arabiyya</div>
+<nav class="nav">
+<button class="active" data-page="home">⌂ Home</button>
+<button data-page="learn">◈ Learn</button>
+<button data-page="lessons">▣ Lessons</button>
+<button data-page="vocabulary">A Vocabulary</button>
+<button data-page="grammar">文 Grammar</button>
+<button data-page="exercises">✓ Exercises</button>
+<button data-page="speaking">◉ Speaking</button>
+<button data-page="listening">♫ Listening</button>
+<button data-page="progress">▥ Progress</button>
+<button data-page="profile">◎ Profile</button>
+</nav>
+</aside>
+
+<main class="main">
+<div class="top"><h1 id="pageTitle">Welcome back 👋</h1><div class="actions"><button class="icon" id="theme">☾</button><button class="icon" onclick="showPlacement()">⚙</button></div></div>
+
+<section id="home" class="page active">
+<div class="hero"><div><span class="pill" style="background:#ffffff22;color:white">LEVEL 1 · ABSOLUTE BEGINNER</span><h2>Start speaking Arabic.</h2><p>Learn step-by-step with pronunciation, conversations, exercises, quizzes and smart revision.</p><button class="btn light" onclick="openLesson(1)">Continue Lesson →</button></div><div style="font-size:90px;direction:rtl;opacity:.8">أب</div></div>
+<div class="grid">
+<div class="card stat"><span class="muted">Current Level</span><strong>1</strong><span>Absolute Beginner</span></div>
+<div class="card stat"><span class="muted">Lessons</span><strong id="lessonsDone">0 / 12</strong><span>Keep going</span></div>
+<div class="card stat"><span class="muted">Daily Streak</span><strong>🔥 <span id="streak">1</span></strong><span>day</span></div>
+<div class="card stat"><span class="muted">Progress</span><strong id="progressNum">0%</strong><div class="bar"><i id="progressBar" style="width:0%"></i></div></div>
+</div>
+<div class="section-title"><h2>Learning path</h2><button class="btn ghost" onclick="showPage('learn')">View all</button></div>
+<div class="levels">
+<div class="card level" onclick="showPage('lessons')"><span class="pill">LEVEL 1</span><h3>Absolute Beginner</h3><p class="muted">Alphabet, vowels, greetings, numbers and everyday words.</p><div class="bar"><i style="width:8%"></i></div></div>
+<div class="card level" onclick="showPage('lessons')"><span class="pill">LEVEL 2</span><h3>Beginner</h3><p class="muted">Family, food, colors, time, questions and verbs.</p><div class="bar"><i style="width:0%"></i></div></div>
+<div class="card level" onclick="showPage('lessons')"><span class="pill">LEVEL 3</span><h3>Elementary</h3><p class="muted">Grammar, pronouns, tenses and everyday conversations.</p><div class="bar"><i style="width:0%"></i></div></div>
+</div>
+<div class="section-title"><h2>Today's practice</h2></div>
+<div class="grid"><div class="card"><b>Vocabulary review</b><p class="muted">5 words are waiting for review.</p><button class="btn" onclick="showPage('vocabulary')">Review</button></div><div class="card"><b>Speaking challenge</b><p class="muted">Say today's phrases aloud.</p><button class="btn" onclick="showPage('speaking')">Practice</button></div><div class="card"><b>Listening</b><p class="muted">Train your Arabic ear.</p><button class="btn" onclick="showPage('listening')">Listen</button></div><div class="card"><b>Quick quiz</b><p class="muted">Test what you learned.</p><button class="btn" onclick="showPage('exercises')">Start</button></div></div>
+</section>
+
+<section id="learn" class="page">
+<div class="hero"><div><span class="pill" style="background:#ffffff22;color:white">6 LEVELS</span><h2>Your Arabic journey</h2><p>Unlock skills gradually—from letters to real-life conversations and fluency tests.</p></div></div>
+<div class="levels" style="margin-top:20px" id="allLevels"></div>
+</section>
+
+<section id="lessons" class="page">
+<div class="section-title"><h2>Lessons</h2><span class="muted">12 sample lessons</span></div>
+<input class="search" id="lessonSearch" placeholder="Search lessons..." oninput="renderLessons()">
+<div class="tabs" style="margin-top:14px"><button class="tab active" onclick="filterLevel(1,this)">Level 1</button><button class="tab" onclick="filterLevel(2,this)">Level 2</button><button class="tab" onclick="filterLevel(3,this)">Level 3</button><button class="tab" onclick="filterLevel(4,this)">Level 4</button><button class="tab" onclick="filterLevel(5,this)">Level 5</button><button class="tab" onclick="filterLevel(6,this)">Level 6</button></div>
+<div class="lesson-list" id="lessonList"></div>
+</section>
+
+<section id="vocabulary" class="page"><div class="section-title"><h2>Vocabulary</h2><span class="muted">Spaced repetition</span></div><div class="vocab" id="vocabList"></div></section>
+
+<section id="grammar" class="page"><div class="section-title"><h2>Grammar</h2><span class="muted">Simple explanations</span></div><div class="grid" id="grammarList"></div></section>
+
+<section id="exercises" class="page"><div class="section-title"><h2>Exercises</h2><span class="muted">Immediate feedback</span></div><div class="card exercise" id="exerciseBox"></div></section>
+
+<section id="speaking" class="page"><div class="section-title"><h2>Speaking Lab</h2><span class="muted">Listen → repeat → record</span></div><div class="card exercise"><h3>Repeat the phrase</h3><div class="arabic-xl">مَرْحَبًا</div><p class="trans">Marḥaban</p><div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap"><button class="btn" onclick="playAudio('مَرْحَبًا')">🔊 Listen</button><button class="btn ghost" onclick="playAudio('مَرْحَبًا',true)">🐢 Slow audio</button><button class="btn ghost" onclick="startRecording()">● Record</button></div><p class="muted" style="text-align:center">The audio uses your device's Arabic text-to-speech voice. Slow mode helps beginners hear each sound.</p><p id="recordStatus" class="muted" style="text-align:center;margin-top:15px">Microphone access is requested only when you press Record.</p><hr style="border:0;border-top:1px solid var(--line)"><h3>Speaking challenge</h3><p>Introduce yourself using a greeting and your name. Try to speak without looking at transliteration.</p><button class="btn" onclick="speak('مَرْحَبًا. أَنَا بِخَيْرٍ، شُكْرًا.')">▶ Model pronunciation</button></div></section>
+
+<section id="listening" class="page"><div class="section-title"><h2>Listening Lab</h2></div><div class="card exercise"><h3>Listen and choose the meaning</h3><button class="btn" onclick="speak('كَيْفَ حَالُكَ؟')">♫ Play audio</button><div id="listenQ" style="margin-top:18px"></div></div></section>
+
+<section id="progress" class="page"><div class="section-title"><h2>Your Progress</h2></div><div class="grid"><div class="card stat"><span class="muted">Course completion</span><strong id="p1">0%</strong><div class="bar"><i id="pbar1" style="width:0%"></i></div></div><div class="card stat"><span class="muted">Quiz average</span><strong id="avg">—</strong></div><div class="card stat"><span class="muted">Words learned</span><strong id="words">3</strong></div><div class="card stat"><span class="muted">Speaking</span><strong>1 min</strong></div></div><div class="card"><h3>Recommended next step</h3><p>Complete Lesson 1: Greetings, then review the three key phrases.</p><button class="btn" onclick="openLesson(1)">Start Lesson 1</button></div></section>
+
+<section id="profile" class="page"><div class="section-title"><h2>Profile</h2></div><div class="profile"><div class="card"><h3>Learner profile</h3><label class="muted">Name</label><input class="search" id="nameInput" value="Arabic Learner" oninput="saveName()"><p class="muted">Your progress is saved in this browser.</p></div><div class="card"><h3>Learning preferences</h3><p><label><input type="checkbox" checked> Show transliteration</label></p><p><label><input type="checkbox" checked> Enable instant feedback</label></p><p><label><input type="checkbox" checked> Daily review reminders</label></p></div></div></section>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modalbox"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+
+<script>
+const lessons=[
+{id:1,level:1,title:"Greetings",ar:"مَرْحَبًا",trans:"Marḥaban",meaning:"Hello",objective:"Learn three essential beginner greetings.",examples:[["مَرْحَبًا","Marḥaban","Hello"],["كَيْفَ حَالُكَ؟","Kayfa ḥāluka?","How are you?"],["أَنَا بِخَيْرٍ، شُكْرًا","Anā bikhayrin, shukran.","I am fine, thank you."]]},
+{id:2,level:1,title:"Arabic Alphabet",ar:"أ ب ت",trans:"Alif, Bā’, Tā’",meaning:"First Arabic letters",objective:"Recognize your first Arabic letters.",examples:[["أ","Alif","a / ā"],["ب","Bā’","b"],["ت","Tā’","t"]]},
+{id:3,level:1,title:"Short & Long Vowels",ar:"بَ بِ بُ",trans:"ba, bi, bu",meaning:"Basic vowel sounds",objective:"Hear and pronounce short vowel patterns.",examples:[["بَ","ba","b + a"],["بِي","bī","b + long ī"],["بُو","bū","b + long ū"]]},
+{id:4,level:1,title:"Numbers 1–10",ar:"وَاحِد، اثْنَان",trans:"Wāḥid, ithnān",meaning:"One, two",objective:"Begin counting in Arabic.",examples:[["وَاحِد","Wāḥid","One"],["اثْنَان","Ithnān","Two"],["ثَلَاثَة","Thalātha","Three"]]},
+{id:5,level:2,title:"Family",ar:"عَائِلَة",trans:"ʿĀ’ila",meaning:"Family",objective:"Talk about simple family members.",examples:[["أَب","Ab","Father"],["أُم","Umm","Mother"],["أَخ","Akh","Brother"]]},
+{id:6,level:2,title:"Food & Drinks",ar:"مَاء وَخُبْز",trans:"Mā’ wa khubz",meaning:"Water and bread",objective:"Order and identify basic food and drinks.",examples:[["مَاء","Mā’","Water"],["خُبْز","Khubz","Bread"],["شَاي","Shāy","Tea"]]},
+{id:7,level:2,title:"Colors",ar:"أَحْمَر، أَزْرَق",trans:"Aḥmar, azraq",meaning:"Red, blue",objective:"Recognize common colors.",examples:[["أَحْمَر","Aḥmar","Red"],["أَزْرَق","Azraq","Blue"],["أَخْضَر","Akhdar","Green"]]},
+{id:8,level:3,title:"Pronouns",ar:"أَنَا، أَنْتَ، هُوَ",trans:"Anā, anta, huwa",meaning:"I, you, he",objective:"Use basic Arabic pronouns.",examples:[["أَنَا","Anā","I"],["أَنْتَ","Anta","You (m.)"],["هُوَ","Huwa","He"]]},
+{id:9,level:3,title:"Simple Sentences",ar:"أَنَا طَالِبٌ",trans:"Anā ṭālibun",meaning:"I am a student",objective:"Build basic nominal sentences.",examples:[["أَنَا طَالِبٌ","Anā ṭālibun","I am a student."],["هُوَ طَالِبٌ","Huwa ṭālibun","He is a student."]]},
+{id:10,level:4,title:"Everyday Conversation",ar:"أَيْنَ السُّوق؟",trans:"Ayna as-sūq?",meaning:"Where is the market?",objective:"Handle a simple real-life question.",examples:[["أَيْنَ السُّوق؟","Ayna as-sūq?","Where is the market?"]]},
+{id:11,level:5,title:"Formal Arabic",ar:"الأَخْبَار",trans:"Al-akhbār",meaning:"The news",objective:"Recognize common formal Arabic vocabulary.",examples:[["الأَخْبَار","Al-akhbār","The news"],["اليَوْم","Al-yawm","Today"]]},
+{id:12,level:6,title:"Fluency Challenge",ar:"لِنَتَحَدَّثْ بِالعَرَبِيَّة",trans:"Linataḥaddath bil-ʿarabiyya",meaning:"Let's speak Arabic",objective:"Combine listening and speaking skills.",examples:[["مَرْحَبًا","Marḥaban","Hello"],["كَيْفَ حَالُكَ؟","Kayfa ḥāluka?","How are you?"]]}
+];
+let currentLevel=1, completed=JSON.parse(localStorage.getItem("arabiyyaCompleted")||"[]"), quizScores=JSON.parse(localStorage.getItem("arabiyyaScores")||"[]");
+const vocab=[["مَرْحَبًا","Marḥaban","Hello"],["شُكْرًا","Shukran","Thank you"],["مَاء","Mā’","Water"],["أَب","Ab","Father"],["أُم","Umm","Mother"],["وَاحِد","Wāḥid","One"],["أَحْمَر","Aḥmar","Red"],["أَنَا","Anā","I"]];
+
+function save(){localStorage.setItem("arabiyyaCompleted",JSON.stringify(completed));localStorage.setItem("arabiyyaScores",JSON.stringify(quizScores));updateStats()}
+function updateStats(){let p=Math.round(completed.length/12*100);document.querySelectorAll("#progressNum,#p1").forEach(e=>e.textContent=p+"%");document.querySelectorAll("#progressBar,#pbar1").forEach(e=>e.style.width=p+"%");document.getElementById("lessonsDone").textContent=completed.length+" / 12";document.getElementById("words").textContent=Math.min(3+completed.length*2,30);let a=quizScores.length?Math.round(quizScores.reduce((x,y)=>x+y,0)/quizScores.length):null;document.getElementById("avg").textContent=a===null?"—":a+"%"}
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));let names={home:"Welcome back 👋",learn:"Learning Path",lessons:"Lessons",vocabulary:"Vocabulary",grammar:"Grammar",exercises:"Exercises",speaking:"Speaking Lab",listening:"Listening Lab",progress:"Your Progress",profile:"Profile"};document.getElementById("pageTitle").textContent=names[id]||"Arabiyya";if(id==="lessons")renderLessons();if(id==="vocabulary")renderVocab();if(id==="grammar")renderGrammar();if(id==="exercises")renderExercise();if(id==="listening")renderListening()}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+const audioCache = {};
+let activeAudio = null;
+
+// Primary audio: a real Arabic MP3 generated by Google Translate's public
+// translation audio endpoint. This avoids depending on the browser's
+// installed Arabic speech-synthesis voice (which can differ by browser/device).
+function getArabicAudioUrl(text){
+  return "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=ar&q=" + encodeURIComponent(text);
+}
+
+function getArabicVoice(){
+  if(!("speechSynthesis" in window)) return null;
+  const voices = speechSynthesis.getVoices();
+  return voices.find(v => /^ar(-|_)/i.test(v.lang)) || voices.find(v => /Arabic|العربية/i.test(v.name)) || null;
+}
+
+function browserSpeechFallback(text, rate=.82){
+  if(!("speechSynthesis" in window)){
+    alert("Arabic audio could not be loaded. Please check your internet connection.");
+    return;
+  }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ar-SA";
+  u.rate = rate;
+  u.pitch = 1;
+  const voice = getArabicVoice();
+  if(voice) u.voice = voice;
+  u.onstart = () => document.body.classList.add("speaking");
+  u.onend = u.onerror = () => document.body.classList.remove("speaking");
+  speechSynthesis.speak(u);
+}
+
+function speak(text, rate=.82){
+  if(activeAudio){
+    activeAudio.pause();
+    activeAudio.currentTime = 0;
+  }
+  const key = text + "|ar";
+  const audio = audioCache[key] || new Audio(getArabicAudioUrl(text));
+  audio.preload = "auto";
+  audio.playbackRate = rate;
+  audio.onplay = () => document.body.classList.add("speaking");
+  audio.onended = audio.onerror = () => document.body.classList.remove("speaking");
+  audioCache[key] = audio;
+  activeAudio = audio;
+  const promise = audio.play();
+  if(promise && promise.catch){
+    promise.catch(() => browserSpeechFallback(text, rate));
+  }
+}
+
+function slowSpeak(text){ speak(text,.62); }
+function playAudio(text, slow=false){ speak(text, slow ? .62 : .82); }
+if("speechSynthesis" in window) speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+function audioButtons(ar){return `<button class="audio" onclick="speak('${ar.replaceAll("'","\\\\'")}')">▶ Listen</button> <button class="audio" onclick="slowSpeak('${ar.replaceAll("'","\\\\'")}')">🐢 Slow</button>`}
+function openLesson(id){let l=lessons.find(x=>x.id===id);document.getElementById("modalContent").innerHTML=`<span class="pill">LESSON ${l.id} · LEVEL ${l.level}</span><h2>${l.title}</h2><p class="muted"><b>Objective:</b> ${l.objective}</p><div class="arabic-xl">${l.ar}</div><p class="trans">${l.trans}</p><p class="meaning">${l.meaning}</p><div style="text-align:center">${audioButtons(l.ar)}</div><h3>Examples</h3>${l.examples.map(e=>`<div class="phrase"><div class="ar">${e[0]}</div><p class="trans">${e[1]}</p><p>${e[2]}</p>${audioButtons(e[0])}</div>`).join("")}<h3>Mini conversation</h3><div class="conversation"><div class="bubble you">مَرْحَبًا</div><div class="bubble ai">مَرْحَبًا! كَيْفَ حَالُكَ؟</div><div class="bubble you">أَنَا بِخَيْرٍ، شُكْرًا</div></div><h3>Practice</h3><p>Listen, repeat the phrases, then take the lesson quiz.</p><button class="btn" onclick="closeModal();showPage('exercises');renderExercise(${id})">Take lesson quiz →</button>`;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function filterLevel(n,el){currentLevel=n;document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));el.classList.add("active");renderLessons()}
+function renderLessons(){let q=(document.getElementById("lessonSearch")?.value||"").toLowerCase();let list=lessons.filter(l=>l.level===currentLevel&&l.title.toLowerCase().includes(q));document.getElementById("lessonList").innerHTML=list.map(l=>`<div class="card lesson"><span class="pill">LESSON ${l.id}</span><h3>${l.title}</h3><div class="arabic">${l.ar}</div><p class="muted">${l.objective}</p><div class="lesson-actions"><button class="btn" onclick="openLesson(${l.id})">${completed.includes(l.id)?"Review":"Start"}</button><button class="audio" onclick="speak('${l.ar}')">▶</button></div></div>`).join("")||"<p>No lessons found.</p>"}
+function renderVocab(){document.getElementById("vocabList").innerHTML=vocab.map((v,i)=>`<div class="card vcard"><div class="ar">${v[0]}</div><i>${v[1]}</i><p class="muted">${v[2]}</p><button class="audio" onclick="speak('${v[0]}')">▶ Listen</button><button class="audio" onclick="markReview(${i})">↻ Review</button></div>`).join("")}
+function markReview(i){speak(vocab[i][0]);alert("Added to your review practice.");}
+function renderGrammar(){let g=[["الضمائر","Pronouns","أَنَا = I, أَنْتَ = you, هُوَ = he"],["المذكر والمؤنث","Masculine & feminine","Arabic nouns and adjectives can change according to gender."],["الجملة الاسمية","Nominal sentence","A simple nominal sentence can begin with a pronoun: أَنَا طَالِبٌ"],["الفعل المضارع","Present tense","Learn how prefixes change with the subject."],["الفعل الماضي","Past tense","Learn common past-tense verb patterns."],["المفرد والجمع","Singular & plural","Recognize singular words and common plural patterns."]];document.getElementById("grammarList").innerHTML=g.map(x=>`<div class="card"><span class="pill">GRAMMAR</span><h3>${x[0]}</h3><p class="muted">${x[1]}</p><p>${x[2]}</p><button class="btn ghost" onclick="alert('Practice this grammar point with the exercises section.')">Practice</button></div>`).join("")}
+let qIndex=0;const qs=[{q:"What does مَرْحَبًا mean?",opts:["Goodbye","Hello","Thank you","Good morning"],ans:1,why:"مَرْحَبًا means “Hello” and is a common greeting."},{q:"What does شُكْرًا mean?",opts:["Please","Hello","Thank you","Sorry"],ans:2,why:"شُكْرًا means “Thank you”."},{q:"Choose the Arabic for “How are you?”",opts:["أَنَا بِخَيْرٍ","كَيْفَ حَالُكَ؟","مَرْحَبًا","شُكْرًا"],ans:1,why:"كَيْفَ حَالُكَ؟ means “How are you?”"}];
+function renderExercise(){let q=qs[qIndex%qs.length];document.getElementById("exerciseBox").innerHTML=`<span class="pill">QUESTION ${qIndex%qs.length+1} / ${qs.length}</span><h3>${q.q}</h3>${q.opts.map((o,i)=>`<button class="option" onclick="answer(${i},${q.ans})">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}<div id="feedback" class="feedback"></div><button class="btn ghost" style="margin-top:12px" onclick="qIndex++;renderExercise()">Next question</button>`}
+function answer(i,ans){let f=document.getElementById("feedback");if(i===ans){f.className="feedback good";f.innerHTML="✓ Correct! "+qs[qIndex%qs.length].why;quizScores.push(100);let id=1;if(!completed.includes(id))completed.push(id);save()}else{f.className="feedback bad";f.innerHTML="✗ Not quite. "+qs[qIndex%qs.length].why+" Try again and listen to the phrase.";quizScores.push(0);save()}}
+function renderListening(){document.getElementById("listenQ").innerHTML=`<button class="option" onclick="listenAnswer(0)">A. Hello</button><button class="option" onclick="listenAnswer(1)">B. How are you?</button><button class="option" onclick="listenAnswer(2)">C. Thank you</button><div id="lf" class="feedback"></div>`}
+function listenAnswer(i){let f=document.getElementById("lf");f.className="feedback "+(i===1?"good":"bad");f.textContent=i===1?"✓ Correct! كَيْفَ حَالُكَ؟ means “How are you?”":"✗ Try again. The phrase you heard was كَيْفَ حَالُكَ؟"}
+function renderAllLevels(){let data=[["1","Absolute Beginner","Alphabet, pronunciation, greetings, numbers"],["2","Beginner","Family, food, colors, time, questions"],["3","Elementary","Sentence formation, pronouns, tenses"],["4","Intermediate","Grammar, listening, reading, writing"],["5","Advanced","Formal Arabic, advanced grammar and vocabulary"],["6","Fluency","Real-life conversations and fluency tests"]];document.getElementById("allLevels").innerHTML=data.map(x=>`<div class="card level" onclick="filterFromLearn(${x[0]})"><span class="pill">LEVEL ${x[0]}</span><h3>${x[1]}</h3><p class="muted">${x[2]}</p></div>`).join("")}
+function filterFromLearn(n){showPage("lessons");currentLevel=+n;document.querySelectorAll(".tab").forEach((x,i)=>x.classList.toggle("active",i===n-1));renderLessons()}
+function showPlacement(){document.getElementById("modalContent").innerHTML=`<h2>Arabic Placement Test</h2><p>Answer three quick questions. This demo uses a simple score to recommend a starting level.</p><div id="placeQ"></div>`;document.getElementById("modal").classList.add("show");let i=0,score=0;let data=[["What does مَاء mean?",["Water","Bread","Father"],0],["Choose “I”: ",["هُوَ","أَنَا","أَنْتَ"],1],["What does أَيْنَ mean?",["Who","Where","When"],1]];function next(){if(i>=data.length){let level=score===3?"Advanced":score===2?"Intermediate":score===1?"Elementary":"Beginner";document.getElementById("placeQ").innerHTML=`<h3>Your suggested starting level: ${level}</h3><p>You scored ${score}/${data.length}. You can change your level anytime.</p><button class="btn" onclick="closeModal();showPage('lessons')">Start learning</button>`;return}let d=data[i];document.getElementById("placeQ").innerHTML=`<h3>${d[0]}</h3>${d[1].map((x,j)=>`<button class="option" onclick="if(${j}===${d[2]})score++;i++;next()">${x}</button>`).join("")}`}next()}
+function startRecording(){if(!navigator.mediaDevices?.getUserMedia){document.getElementById("recordStatus").textContent="Recording is not supported in this browser.";return}navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{document.getElementById("recordStatus").textContent="● Recording… speak now for 5 seconds.";setTimeout(()=>{stream.getTracks().forEach(t=>t.stop());document.getElementById("recordStatus").textContent="✓ Recording finished. Compare your pronunciation with the model and try again.";},5000)}).catch(()=>document.getElementById("recordStatus").textContent="Microphone permission was not granted.")}
+
+document.getElementById("theme").onclick=()=>{document.body.classList.toggle("dark");localStorage.setItem("arabiyyaDark",document.body.classList.contains("dark"));document.getElementById("theme").textContent=document.body.classList.contains("dark")?"☀":"☾"}
+function saveName(){localStorage.setItem("arabiyyaName",document.getElementById("nameInput").value)}
+if(localStorage.getItem("arabiyyaDark")==="true"){document.body.classList.add("dark");document.getElementById("theme").textContent="☀"}
+if(localStorage.getItem("arabiyyaName"))document.getElementById("nameInput").value=localStorage.getItem("arabiyyaName");
+renderAllLevels();renderLessons();updateStats();
+</script>
+</body>
+</html>
